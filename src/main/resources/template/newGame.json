@@ -1,0 +1,580 @@
+{
+  "id": null,
+  "name": null,
+  "players": [],
+  "titles": {
+    "properties": [
+      {
+        "name": "Old Kent Road",
+        "colour": "#993300",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          2,
+          10,
+          30,
+          90,
+          160,
+          250
+        ],
+        "price": {
+          "purchase": 60,
+          "house": 50,
+          "hotel": 50,
+          "mortgage": 30
+        }
+      },
+      {
+        "name": "Whitechapel Road",
+        "colour": "#993300",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          4,
+          20,
+          60,
+          180,
+          320,
+          450
+        ],
+        "price": {
+          "purchase": 60,
+          "house": 50,
+          "hotel": 50,
+          "mortgage": 30
+        }
+      },
+      {
+        "name": "The Angel Islington",
+        "colour": "#0099ff",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          6,
+          30,
+          90,
+          270,
+          400,
+          550
+        ],
+        "price": {
+          "purchase": 100,
+          "house": 50,
+          "hotel": 50,
+          "mortgage": 50
+        }
+      },
+      {
+        "name": "Euston Road",
+        "colour": "#0099ff",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          6,
+          30,
+          90,
+          270,
+          400,
+          550
+        ],
+        "price": {
+          "purchase": 100,
+          "house": 50,
+          "hotel": 50,
+          "mortgage": 50
+        }
+      },
+      {
+        "name": "Pentonville Road",
+        "colour": "#0099ff",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          8,
+          40,
+          100,
+          300,
+          450,
+          600
+        ],
+        "price": {
+          "purchase": 120,
+          "house": 50,
+          "hotel": 50,
+          "mortgage": 60
+        }
+      },
+      {
+        "name": "Pall Mall",
+        "colour": "#ff3399",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          10,
+          50,
+          150,
+          450,
+          625,
+          750
+        ],
+        "price": {
+          "purchase": 140,
+          "house": 100,
+          "hotel": 100,
+          "mortgage": 70
+        }
+      },
+      {
+        "name": "Whitehall",
+        "colour": "#ff3399",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          10,
+          50,
+          150,
+          450,
+          625,
+          750
+        ],
+        "price": {
+          "purchase": 140,
+          "house": 100,
+          "hotel": 100,
+          "mortgage": 70
+        }
+      },
+      {
+        "name": "Northumberland Avenue",
+        "colour": "#ff3399",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          12,
+          60,
+          180,
+          500,
+          700,
+          900
+        ],
+        "price": {
+          "purchase": 160,
+          "house": 100,
+          "hotel": 100,
+          "mortgage": 80
+        }
+      },
+      {
+        "name": "Bow Street",
+        "colour": "#ff9900",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          14,
+          70,
+          200,
+          550,
+          750,
+          950
+        ],
+        "price": {
+          "purchase": 180,
+          "house": 100,
+          "hotel": 100,
+          "mortgage": 90
+        }
+      },
+      {
+        "name": "Marlborough Street",
+        "colour": "#ff9900",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          14,
+          70,
+          200,
+          550,
+          750,
+          950
+        ],
+        "price": {
+          "purchase": 180,
+          "house": 100,
+          "hotel": 100,
+          "mortgage": 90
+        }
+      },
+      {
+        "name": "Vine Street",
+        "colour": "#ff9900",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          16,
+          80,
+          220,
+          600,
+          800,
+          1000
+        ],
+        "price": {
+          "purchase": 200,
+          "house": 100,
+          "hotel": 100,
+          "mortgage": 100
+        }
+      },
+      {
+        "name": "The Strand",
+        "colour": "#ff0000",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          18,
+          90,
+          250,
+          700,
+          875,
+          1050
+        ],
+        "price": {
+          "purchase": 220,
+          "house": 150,
+          "hotel": 150,
+          "mortgage": 110
+        }
+      },
+      {
+        "name": "Fleet Street",
+        "colour": "#ff0000",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          18,
+          90,
+          250,
+          700,
+          875,
+          1050
+        ],
+        "price": {
+          "purchase": 220,
+          "house": 150,
+          "hotel": 150,
+          "mortgage": 110
+        }
+      },
+      {
+        "name": "Trafalgar Square",
+        "colour": "#ff0000",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          20,
+          100,
+          300,
+          750,
+          925,
+          1100
+        ],
+        "price": {
+          "purchase": 240,
+          "house": 150,
+          "hotel": 150,
+          "mortgage": 120
+        }
+      },
+      {
+        "name": "Leicester Square",
+        "colour": "#ffff66",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          22,
+          110,
+          330,
+          800,
+          975,
+          1150
+        ],
+        "price": {
+          "purchase": 260,
+          "house": 150,
+          "hotel": 150,
+          "mortgage": 130
+        }
+      },
+      {
+        "name": "Coventry Street",
+        "colour": "#ffff66",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          22,
+          110,
+          330,
+          800,
+          975,
+          1150
+        ],
+        "price": {
+          "purchase": 260,
+          "house": 150,
+          "hotel": 150,
+          "mortgage": 130
+        }
+      },
+      {
+        "name": "Piccadilly",
+        "colour": "#ffff66",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          22,
+          120,
+          360,
+          850,
+          1025,
+          1200
+        ],
+        "price": {
+          "purchase": 280,
+          "house": 150,
+          "hotel": 150,
+          "mortgage": 140
+        }
+      },
+      {
+        "name": "Regent Street",
+        "colour": "#009933",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          26,
+          130,
+          390,
+          900,
+          1000,
+          1275
+        ],
+        "price": {
+          "purchase": 300,
+          "house": 200,
+          "hotel": 200,
+          "mortgage": 150
+        }
+      },
+      {
+        "name": "Oxford Street",
+        "colour": "#009933",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          26,
+          130,
+          390,
+          900,
+          1000,
+          1275
+        ],
+        "price": {
+          "purchase": 300,
+          "house": 200,
+          "hotel": 200,
+          "mortgage": 150
+        }
+      },
+      {
+        "name": "Bond Street",
+        "colour": "#009933",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          28,
+          150,
+          450,
+          1000,
+          1200,
+          1400
+        ],
+        "price": {
+          "purchase": 320,
+          "house": 200,
+          "hotel": 200,
+          "mortgage": 160
+        }
+      },
+      {
+        "name": "Park Lane",
+        "colour": "#9933ff",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          35,
+          175,
+          500,
+          1100,
+          1300,
+          1500
+        ],
+        "price": {
+          "purchase": 350,
+          "house": 200,
+          "hotel": 200,
+          "mortgage": 175
+        }
+      },
+      {
+        "name": "Mayfair",
+        "colour": "#9933ff",
+        "owner": null,
+        "mortgaged": false,
+        "houses": 0,
+        "hotels": 0,
+        "rent": [
+          50,
+          200,
+          600,
+          1400,
+          1700,
+          2000
+        ],
+        "price": {
+          "purchase": 400,
+          "house": 200,
+          "hotel": 200,
+          "mortgage": 200
+        }
+      }
+    ],
+    "utilities": [
+      {
+        "name": "Electric Company",
+        "owner": null,
+        "mortgaged": false,
+        "price": {
+          "purchase": 150,
+          "mortgage": 75
+        }
+      },
+      {
+        "name": "Water Works",
+        "owner": null,
+        "mortgaged": false,
+        "price": {
+          "purchase": 150,
+          "mortgage": 75
+        }
+      }
+    ],
+    "stations": [
+      {
+        "name": "Kings Cross Station",
+        "colour": "#666699",
+        "owner": null,
+        "mortgaged": false,
+        "rent": [
+          25,
+          50,
+          100,
+          200
+        ],
+        "price": {
+          "purchase": 200,
+          "mortgage": 100
+        }
+      },
+      {
+        "name": "Marylebone Station",
+        "colour": "#666699",
+        "owner": null,
+        "mortgaged": false,
+        "rent": [
+          25,
+          50,
+          100,
+          200
+        ],
+        "price": {
+          "purchase": 200,
+          "mortgage": 100
+        }
+      },
+      {
+        "name": "Fenchurch St Station",
+        "colour": "#666699",
+        "owner": null,
+        "mortgaged": false,
+        "rent": [
+          25,
+          50,
+          100,
+          200
+        ],
+        "price": {
+          "purchase": 200,
+          "mortgage": 100
+        }
+      },
+      {
+        "name": "Liverpool Street Station",
+        "colour": "#666699",
+        "owner": null,
+        "mortgaged": false,
+        "rent": [
+          25,
+          50,
+          100,
+          200
+        ],
+        "price": {
+          "purchase": 200,
+          "mortgage": 100
+        }
+      }
+    ]
+  },
+  "logs": []
+}
