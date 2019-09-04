@@ -1,0 +1,16 @@
+{
+  "name": "rest-monopoly-lambda",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serverless offline start"
+  },
+  "dependencies": {
+    "aws-sdk": "~2.522.0",
+    "jsonschema": "~1.2.4",
+    "uuid": "~3.3.3"
+  },
+  "devDependencies": {
+    "serverless-dynamodb-local": "~0.2.38",
+    "serverless-offline": "~5.10.1"
+  }
+}
