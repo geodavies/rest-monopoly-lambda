@@ -1,4 +1,6 @@
 # Rest Monopoly Lambda
+[![Build Status](https://travis-ci.org/geodavies/rest-monopoly-lambda.svg?branch=master)](https://travis-ci.org/geodavies/rest-monopoly-lambda)
+
 A collection of lambda functions to control a game of monopoly
 
 ## Pre-Install
