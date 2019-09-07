@@ -1,23 +1,25 @@
 'use strict';
-const AWS = require('aws-sdk');
 const uuid = require('uuid');
 
-const requestValidator = require('../../components/requestValidator');
+const gameDatabaseDao = require('../../components/database/gamesDatabaseDao');
+const requestValidator = require('../../components/validator/requestValidator');
 
-const createGameRequestSchema = require('../../resources/schema/CreateGameRequest');
 const newGameTemplate = require('../../resources/template/newGame.json');
 
-const dbClient = new AWS.DynamoDB.DocumentClient(
-  process.env.IS_OFFLINE ? {region: 'localhost', endpoint: 'http://localhost:8000'} : {}
-);
-
 module.exports.create = (event) => {
-  return requestValidator.validate(event.body, createGameRequestSchema)
+  return validateRequest(event.body)
     .then(createNewGameModel)
     .then(insertGameIntoDatabase)
     .then(generateSuccessResponse)
     .catch(handledErrorResponse => Promise.resolve(handledErrorResponse))
 };
+
+function validateRequest(body) {
+  return requestValidator.validate(body, 'CreateGameRequest')
+    .catch((e) => {
+      throw generateFailureResponse(400, e);
+    })
+}
 
 function createNewGameModel(body) {
   return Object.assign({}, newGameTemplate, {
@@ -27,20 +29,10 @@ function createNewGameModel(body) {
 }
 
 function insertGameIntoDatabase(game) {
-  const params = {
-    TableName: process.env.DYNAMODB_GAME_TABLE,
-    Item: game
-  };
-
-  return dbClient.put(params).promise()
+  return gameDatabaseDao.insert(game)
     .then(() => game)
-    .catch(() => {
-      throw {
-        statusCode: 500,
-        body: JSON.stringify({
-          reason: 'Failed to update game state'
-        })
-      }
+    .catch((e) => {
+      throw generateFailureResponse(500, e);
     });
 }
 
@@ -48,5 +40,14 @@ function generateSuccessResponse(game) {
   return {
     statusCode: 200,
     body: JSON.stringify(game)
+  }
+}
+
+function generateFailureResponse(statusCode, reason) {
+  return {
+    statusCode: statusCode,
+    body: JSON.stringify({
+      reason: reason
+    })
   }
 }

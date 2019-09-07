@@ -9,7 +9,7 @@ provider:
 
 functions:
   gamesCreate:
-    handler: src/main/handlers//games/create.create
+    handler: src/main/handlers/games/create.create
     events:
       - http:
           path: '/games'
