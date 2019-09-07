@@ -15,7 +15,9 @@ Note AWS CLI must also be configured with an Access Key and Secret Access key.
 brew install awscli
 aws configure
 ```
+**Java**
 
+DynamoDB Local depends on java being installed on the machine. Install this however you want. I recommend using SDKMAN!
 ## Install
 ```
 npm install
