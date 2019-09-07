@@ -1,9 +1,5 @@
 'use strict';
-const AWS = require('aws-sdk');
-
-const dbClient = new AWS.DynamoDB.DocumentClient(
-  process.env.IS_OFFLINE ? {region: 'localhost', endpoint: 'http://localhost:8000'} : {}
-);
+const dynamoDb = require('serverless-dynamodb-client').doc;
 
 module.exports.insert = (game) => {
   const params = {
@@ -11,7 +7,7 @@ module.exports.insert = (game) => {
     Item: game
   };
 
-  return dbClient.put(params).promise()
+  return dynamoDb.put(params).promise()
     .then(() => game)
     .catch(() => {
       throw 'Failed to update game state';
