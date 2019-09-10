@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start": "serverless offline start",
-    "test": "./node_modules/.bin/nyc --reporter=html --reporter=text mocha"
+    "test": "./node_modules/mocha/bin/mocha",
+    "coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text mocha",
+    "publish-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "aws-sdk": "~2.522.0",
@@ -14,6 +16,7 @@
   "devDependencies": {
     "chai": "~4.2.0",
     "chai-as-promised": "~7.1.1",
+    "coveralls": "~3.0.6",
     "mocha": "~6.2.0",
     "nyc": "~14.1.1",
     "serverless-dynamodb-local": "~0.2.38",
