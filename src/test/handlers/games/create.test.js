@@ -70,7 +70,7 @@ describe('Create Game Handler', () => {
     });
   });
 
-  it('Returns 500 if inserting into database fails', () => {
+  it('Returns 502 if inserting into database fails', () => {
     const errorReason = 'Failed to update game state';
 
     const validatorStub = sandbox.stub(requestValidator, 'validate')
@@ -89,7 +89,7 @@ describe('Create Game Handler', () => {
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 500,
+      statusCode: 502,
       body: `{\"reason\":\"${errorReason}\"}`
     });
   });

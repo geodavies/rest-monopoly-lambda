@@ -33,6 +33,6 @@ function insertGameIntoDatabase(game) {
   return gameDatabaseDao.insert(game)
     .then(() => game)
     .catch((e) => {
-      throw responseGenerator.generateFailureResponse(500, e.message);
+      throw responseGenerator.generateFailureResponse(502, e.message);
     });
 }
