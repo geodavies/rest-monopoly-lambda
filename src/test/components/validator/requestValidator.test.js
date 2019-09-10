@@ -8,9 +8,17 @@ const fs = require('fs');
 
 const requestValidator = require('../../../../src/main/components/validator/requestValidator');
 
-describe('Request Validator', function () {
+describe('Request Validator', () => {
 
-  it('Throws an exception if parsing fails', function () {
+  it('Successfully validates a CreateGameRequest', () => {
+    const requestBody = fs.readFileSync('./src/test/resources/requests/games/create/valid.json', 'utf8');
+
+    const result = requestValidator.validate(requestBody, 'CreateGameRequest');
+
+    return expect(result).to.become(JSON.parse(requestBody));
+  });
+
+  it('Throws an error if parsing fails', () => {
     const requestBody = 'INVALID JSON';
 
     const result = requestValidator.validate(requestBody, 'CreateGameRequest');
@@ -18,20 +26,12 @@ describe('Request Validator', function () {
     return expect(result).to.be.rejectedWith('Failed to parse request JSON');
   });
 
-  it('Throws an exception if validation fails', function () {
+  it('Throws an error if validation fails', () => {
     const requestBody = '{"invalid": "request"}';
 
     const result = requestValidator.validate(requestBody, 'CreateGameRequest');
 
     return expect(result).to.be.rejectedWith('Body failed schema validation');
-  });
-
-  it('Successfully validates a CreateGameRequest', function () {
-    const requestBody = fs.readFileSync('./src/test/resources/requests/games/create/valid.json', 'utf8');
-
-    const result = requestValidator.validate(requestBody, 'CreateGameRequest');
-
-    return expect(result).to.become(JSON.parse(requestBody));
   });
 
 });

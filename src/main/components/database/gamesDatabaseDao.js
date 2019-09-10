@@ -1,5 +1,7 @@
 'use strict';
-const dynamoDb = require('serverless-dynamodb-client').doc;
+const documentClient = require('serverless-dynamodb-client').doc;
+
+const NotFoundError = require('../error/NotFoundError');
 
 module.exports.insert = (game) => {
   const params = {
@@ -7,9 +9,34 @@ module.exports.insert = (game) => {
     Item: game
   };
 
-  return dynamoDb.put(params).promise()
+  return documentClient.put(params).promise()
     .then(() => game)
     .catch(() => {
-      throw 'Failed to update game state';
+      throw Error('Failed to update game state');
+    });
+};
+
+module.exports.getById = (id) => {
+  const params = {
+    TableName: process.env.DYNAMODB_GAME_TABLE,
+    Key: {
+      'id': id
+    }
+  };
+
+  return documentClient.get(params).promise()
+    .then((data) => {
+      if (typeof data.Item === "undefined") {
+        throw new NotFoundError('Game not found');
+      } else {
+        return data.Item;
+      }
+    })
+    .catch((e) => {
+      if (e instanceof NotFoundError) {
+        throw e;
+      } else {
+        throw new Error('Failed to retrieve game from database');
+      }
     });
 };
