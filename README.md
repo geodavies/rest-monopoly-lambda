@@ -1,6 +1,7 @@
 # Rest Monopoly Lambda
 [![Build Status](https://travis-ci.org/geodavies/rest-monopoly-lambda.svg?branch=master)](https://travis-ci.org/geodavies/rest-monopoly-lambda)
 [![Coverage Status](https://coveralls.io/repos/github/geodavies/rest-monopoly-lambda/badge.svg?branch=master)](https://coveralls.io/github/geodavies/rest-monopoly-lambda?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/085ec022600403fa8bf5/maintainability)](https://codeclimate.com/github/geodavies/rest-monopoly-lambda/maintainability)
 
 A collection of lambda functions to control a game of monopoly
 
