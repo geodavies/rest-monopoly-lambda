@@ -14,7 +14,7 @@ const requestValidator = require('../../../main/components/validator/requestVali
 
 const create = require('../../../main/handlers/games/create');
 
-describe('Create Game Handler', function () {
+describe('Create Game Handler', () => {
 
   const sandbox = sinon.createSandbox();
 
@@ -24,7 +24,7 @@ describe('Create Game Handler', function () {
     sandbox.restore();
   });
 
-  it('Successfully creates a new game', function () {
+  it('Successfully creates a new game', () => {
     const requestBody = fs.readFileSync('./src/test/resources/requests/games/create/valid.json', 'utf8');
     const expectedResponseBody = fs.readFileSync('./src/test/resources/responses/games/create/success.json', 'utf8');
 
@@ -49,11 +49,11 @@ describe('Create Game Handler', function () {
     });
   });
 
-  it('Returns 400 if validation fails', function () {
+  it('Returns 400 if validation fails', () => {
     const errorReason = 'Body failed schema validation';
 
     const validatorStub = sandbox.stub(requestValidator, 'validate')
-      .returns(Promise.reject(errorReason));
+      .returns(Promise.reject(new Error(errorReason)));
 
     const uuidSpy = sandbox.spy(uuid.v4);
     const databaseSpy = sandbox.spy(gameDatabaseDao.insert);
@@ -70,7 +70,7 @@ describe('Create Game Handler', function () {
     });
   });
 
-  it('Returns 500 if inserting into database fails', function () {
+  it('Returns 500 if inserting into database fails', () => {
     const errorReason = 'Failed to update game state';
 
     const validatorStub = sandbox.stub(requestValidator, 'validate')
@@ -80,7 +80,7 @@ describe('Create Game Handler', function () {
       .returns(testUuid);
 
     const databaseStub = sandbox.stub(gameDatabaseDao, 'insert')
-      .returns(Promise.reject('Failed to update game state'));
+      .returns(Promise.reject(new Error('Failed to update game state')));
 
     const result = create.create({body: '{\"test\":\"request\"}'});
 

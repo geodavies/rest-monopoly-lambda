@@ -8,12 +8,22 @@ provider:
     DYNAMODB_GAME_TABLE: ${self:service}-${opt:stage, self:provider.stage}-Games
 
 functions:
-  gamesCreate:
+  createGame:
     handler: src/main/handlers/games/create.create
     events:
       - http:
-          path: '/games'
+          path: /games
           method: post
+  getGame:
+    handler: src/main/handlers/games/get.get
+    events:
+      - http:
+          path: /games/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
 
 resources:
   Resources:

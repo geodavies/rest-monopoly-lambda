@@ -3,6 +3,7 @@ const uuid = require('uuid');
 
 const gameDatabaseDao = require('../../components/database/gamesDatabaseDao');
 const requestValidator = require('../../components/validator/requestValidator');
+const responseGenerator = require('../../components/generator/responseGenerator');
 
 const newGameTemplate = require('../../resources/template/newGame.json');
 
@@ -10,14 +11,14 @@ module.exports.create = (event) => {
   return validateRequest(event.body)
     .then(createNewGameModel)
     .then(insertGameIntoDatabase)
-    .then(generateSuccessResponse)
+    .then(responseGenerator.generateSuccessResponse)
     .catch(handledErrorResponse => Promise.resolve(handledErrorResponse))
 };
 
 function validateRequest(body) {
   return requestValidator.validate(body, 'CreateGameRequest')
     .catch((e) => {
-      throw generateFailureResponse(400, e);
+      throw responseGenerator.generateFailureResponse(400, e.message);
     })
 }
 
@@ -32,22 +33,6 @@ function insertGameIntoDatabase(game) {
   return gameDatabaseDao.insert(game)
     .then(() => game)
     .catch((e) => {
-      throw generateFailureResponse(500, e);
+      throw responseGenerator.generateFailureResponse(500, e.message);
     });
-}
-
-function generateSuccessResponse(game) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(game)
-  }
-}
-
-function generateFailureResponse(statusCode, reason) {
-  return {
-    statusCode: statusCode,
-    body: JSON.stringify({
-      reason: reason
-    })
-  }
 }
