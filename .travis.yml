@@ -3,7 +3,8 @@ node_js: 10.16.3 # Lambda runtime version
 install:
   - npm ci
 script:
-  - npm test
+  - npm run coverage
+  - npm run publish-coverage
 cache:
   directories:
     - "$HOME/.npm"
