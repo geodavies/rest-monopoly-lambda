@@ -1,9 +1,8 @@
 'use strict';
-const uuid = require('uuid');
-
-const gameDatabaseDao = require('../../components/database/gamesDatabaseDao');
+const gamesDatabaseDao = require('../../components/database/gamesDatabaseDao');
 const requestValidator = require('../../components/validator/requestValidator');
 const responseGenerator = require('../../components/generator/responseGenerator');
+const idUtility = require('../../components/utility/idUtility');
 
 const newGameTemplate = require('../../resources/template/newGame.json');
 
@@ -24,13 +23,13 @@ function validateRequest(body) {
 
 function createNewGameModel(body) {
   return Object.assign({}, newGameTemplate, {
-    id: uuid.v4(),
+    id: idUtility.generateId(),
     name: body.name
   });
 }
 
 function insertGameIntoDatabase(game) {
-  return gameDatabaseDao.insert(game)
+  return gamesDatabaseDao.insert(game)
     .then(() => game)
     .catch((e) => {
       throw responseGenerator.generateFailureResponse(502, e.message);
