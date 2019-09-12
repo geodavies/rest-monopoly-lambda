@@ -3,14 +3,13 @@ const chai = require('chai');
 const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-
 const sinon = require('sinon');
 
 const fs = require('fs');
 
-const uuid = require('uuid');
-const gameDatabaseDao = require('../../../main/components/database/gamesDatabaseDao');
+const gamesDatabaseDao = require('../../../main/components/database/gamesDatabaseDao');
 const requestValidator = require('../../../main/components/validator/requestValidator');
+const idUtility = require('../../../main/components/utility/idUtility');
 
 const create = require('../../../main/handlers/games/create');
 
@@ -18,7 +17,7 @@ describe('Create Game Handler', () => {
 
   const sandbox = sinon.createSandbox();
 
-  const testUuid = '00000000-0000-0000-0000-000000000000';
+  const validTestId = 'ABcde12345';
 
   afterEach(function () {
     sandbox.restore();
@@ -31,16 +30,16 @@ describe('Create Game Handler', () => {
     const validatorStub = sandbox.stub(requestValidator, 'validate')
       .returns(Promise.resolve(JSON.parse(requestBody)));
 
-    const uuidStub = sandbox.stub(uuid, 'v4')
-      .returns(testUuid);
+    const idUtilityStub = sandbox.stub(idUtility, 'generateId')
+      .returns(validTestId);
 
-    const databaseStub = sandbox.stub(gameDatabaseDao, 'insert')
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'insert')
       .returns(Promise.resolve(JSON.parse(requestBody)));
 
     const result = create.create({body: requestBody});
 
     expect(validatorStub.calledOnce);
-    expect(uuidStub.calledOnce);
+    expect(idUtilityStub.calledOnce);
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
@@ -55,8 +54,8 @@ describe('Create Game Handler', () => {
     const validatorStub = sandbox.stub(requestValidator, 'validate')
       .returns(Promise.reject(new Error(errorReason)));
 
-    const uuidSpy = sandbox.spy(uuid.v4);
-    const databaseSpy = sandbox.spy(gameDatabaseDao.insert);
+    const uuidSpy = sandbox.spy(idUtility.generateId);
+    const databaseSpy = sandbox.spy(gamesDatabaseDao.insert);
 
     const result = create.create({body: '{\"test\":\"request\"}'});
 
@@ -76,10 +75,10 @@ describe('Create Game Handler', () => {
     const validatorStub = sandbox.stub(requestValidator, 'validate')
       .returns(Promise.resolve({"name": "Test Game"}));
 
-    const uuidStub = sandbox.stub(uuid, 'v4')
-      .returns(testUuid);
+    const uuidStub = sandbox.stub(idUtility, 'generateId')
+      .returns(validTestId);
 
-    const databaseStub = sandbox.stub(gameDatabaseDao, 'insert')
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'insert')
       .returns(Promise.reject(new Error('Failed to update game state')));
 
     const result = create.create({body: '{\"test\":\"request\"}'});

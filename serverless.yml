@@ -18,12 +18,22 @@ functions:
     handler: src/main/handlers/games/get.get
     events:
       - http:
-          path: /games/{id}
+          path: /games/{gameId}
           method: get
           request:
             parameters:
               paths:
-                id: true
+                gameId: true
+  getPlayers:
+    handler: src/main/handlers/players/get.get
+    events:
+      - http:
+          path: /games/{gameId}/players
+          method: get
+          request:
+            parameters:
+              paths:
+                gameId: true
 
 resources:
   Resources:

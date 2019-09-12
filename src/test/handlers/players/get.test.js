@@ -8,9 +8,9 @@ const commonTests = require('../sharedHandlerTestHelpers');
 
 const gamesDatabaseDao = require('../../../main/components/database/gamesDatabaseDao');
 
-const get = require('../../../main/handlers/games/get');
+const get = require('../../../main/handlers/players/get');
 
-describe('Get Game Handler', () => {
+describe('Get Players Handler', () => {
 
   const sandbox = sinon.createSandbox();
 
@@ -18,10 +18,11 @@ describe('Get Game Handler', () => {
     sandbox.restore();
   });
 
-  it('Successfully gets a game', () => {
-    const expectedResponseBody = {"Test": "Game"};
+  it('Successfully gets players of a game', () => {
+    const expectedResponseBody = ["test", "players"];
+    const game = {players: expectedResponseBody};
 
-    commonTests.success200(get.get, sandbox, gamesDatabaseDao, expectedResponseBody, expectedResponseBody);
+    commonTests.success200(get.get, sandbox, gamesDatabaseDao, game, expectedResponseBody);
   });
 
   it('Returns 400 if game ID is invalid', () => {
