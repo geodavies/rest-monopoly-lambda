@@ -9,13 +9,13 @@ provider:
 
 functions:
   createGame:
-    handler: src/main/handlers/games/create.create
+    handler: src/main/handlers/games/post.game
     events:
       - http:
           path: /games
           method: post
   getGame:
-    handler: src/main/handlers/games/get.get
+    handler: src/main/handlers/games/get.game
     events:
       - http:
           path: /games/{gameId}
@@ -25,7 +25,7 @@ functions:
               paths:
                 gameId: true
   getPlayers:
-    handler: src/main/handlers/players/get.get
+    handler: src/main/handlers/players/get.players
     events:
       - http:
           path: /games/{gameId}/players
@@ -34,6 +34,17 @@ functions:
             parameters:
               paths:
                 gameId: true
+  getPlayer:
+    handler: src/main/handlers/players/get.player
+    events:
+      - http:
+          path: /games/{gameId}/players/{playerId}
+          method: get
+          request:
+            parameters:
+              paths:
+                gameId: true
+                playerId: true
 
 resources:
   Resources:

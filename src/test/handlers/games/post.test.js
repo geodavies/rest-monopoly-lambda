@@ -11,7 +11,7 @@ const gamesDatabaseDao = require('../../../main/components/database/gamesDatabas
 const requestValidator = require('../../../main/components/validator/requestValidator');
 const idUtility = require('../../../main/components/utility/idUtility');
 
-const create = require('../../../main/handlers/games/create');
+const post = require('../../../main/handlers/games/post');
 
 describe('Create Game Handler', () => {
 
@@ -36,7 +36,7 @@ describe('Create Game Handler', () => {
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'insert')
       .returns(Promise.resolve(JSON.parse(requestBody)));
 
-    const result = create.create({body: requestBody});
+    const result = post.game({body: requestBody});
 
     expect(validatorStub.calledOnce);
     expect(idUtilityStub.calledOnce);
@@ -57,7 +57,7 @@ describe('Create Game Handler', () => {
     const uuidSpy = sandbox.spy(idUtility.generateId);
     const databaseSpy = sandbox.spy(gamesDatabaseDao.insert);
 
-    const result = create.create({body: '{\"test\":\"request\"}'});
+    const result = post.game({body: '{\"test\":\"request\"}'});
 
     expect(validatorStub.calledOnce);
     expect(uuidSpy.notCalled);
@@ -81,7 +81,7 @@ describe('Create Game Handler', () => {
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'insert')
       .returns(Promise.reject(new Error('Failed to update game state')));
 
-    const result = create.create({body: '{\"test\":\"request\"}'});
+    const result = post.game({body: '{\"test\":\"request\"}'});
 
     expect(validatorStub.calledOnce);
     expect(uuidStub.calledOnce);

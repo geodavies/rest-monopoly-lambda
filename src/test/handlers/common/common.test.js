@@ -45,6 +45,29 @@ describe('Common Handler Functions', () => {
     expect(idUtilityStub.calledOnce);
   });
 
+  it('validatePlayerId returns id if validation is successful', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(true);
+
+    const result = common.validatePlayerId(validTestId);
+
+    expect(idUtilityStub.calledOnce);
+
+    return expect(result).to.equal(validTestId);
+  });
+
+  it('validatePlayerId returns 400 if validation fails', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(false);
+
+    expect(() => common.validatePlayerId("INVALID ID")).to.throw().that.deep.equals({
+      statusCode: 400,
+      body: '{\"reason\":\"Player ID is invalid\"}'
+    });
+
+    expect(idUtilityStub.calledOnce);
+  });
+
   it('getGameFromDatabase successfully gets a game from the database', () => {
     const testGameJson = {"Test": "Game"};
 

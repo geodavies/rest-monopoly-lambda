@@ -6,11 +6,11 @@ const idUtility = require('../../components/utility/idUtility');
 const NotFoundError = require('../../components/error/NotFoundError');
 
 module.exports.validateGameId = (id) => {
-  const valid = idUtility.validateId(id);
-  if (!valid) {
-    throw responseGenerator.generateFailureResponse(400, 'Game ID is invalid');
-  }
-  return id;
+  return validateId(id, 'Game ID is invalid');
+};
+
+module.exports.validatePlayerId = (id) => {
+  return validateId(id, 'Player ID is invalid');
 };
 
 module.exports.getGameFromDatabase = (id) => {
@@ -22,4 +22,12 @@ module.exports.getGameFromDatabase = (id) => {
         throw responseGenerator.generateFailureResponse(502, e.message);
       }
     });
+};
+
+const validateId = (id, errorMessage) => {
+  const valid = idUtility.validateId(id);
+  if (!valid) {
+    throw responseGenerator.generateFailureResponse(400, errorMessage);
+  }
+  return id;
 };

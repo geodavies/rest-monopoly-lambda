@@ -6,19 +6,19 @@ const idUtility = require('../../components/utility/idUtility');
 
 const newGameTemplate = require('../../resources/template/newGame.json');
 
-module.exports.create = (event) => {
+module.exports.game = (event) => {
   return validateRequest(event.body)
     .then(createNewGameModel)
     .then(insertGameIntoDatabase)
     .then(responseGenerator.generateSuccessResponse)
-    .catch(handledErrorResponse => Promise.resolve(handledErrorResponse))
+    .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
 };
 
 function validateRequest(body) {
   return requestValidator.validate(body, 'CreateGameRequest')
     .catch((e) => {
       throw responseGenerator.generateFailureResponse(400, e.message);
-    })
+    });
 }
 
 function createNewGameModel(body) {

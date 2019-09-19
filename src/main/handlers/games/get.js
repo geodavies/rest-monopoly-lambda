@@ -7,5 +7,5 @@ module.exports.get = (event) => {
     .then(common.validateGameId)
     .then(common.getGameFromDatabase)
     .then(responseGenerator.generateSuccessResponse)
-    .catch(handledErrorResponse => Promise.resolve(handledErrorResponse))
+    .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
 };
