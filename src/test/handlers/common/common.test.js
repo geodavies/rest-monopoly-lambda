@@ -108,4 +108,148 @@ describe('Common Handler Functions', () => {
     });
   });
 
+  it('validateIdAndGetGame successfully validates ID and gets a game from the database', () => {
+    const testGameJson = {"Test": "Game"};
+
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(true);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve(testGameJson));
+
+    const result = common.validateIdAndGetGame(validTestId);
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    return expect(result).to.become(testGameJson);
+  });
+
+  it('validateIdAndGetGame returns 400 if validation fails', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(false);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve());
+
+    const result = common.validateIdAndGetGame('INVALID ID');
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    expect(result).to.eventually.be.rejected.and.deep.equal({
+      statusCode: 400,
+      body: '{\"reason\":\"Game ID is invalid\"}'
+    });
+  });
+
+  it('validateIdAndGetGame returns 404 when no game is found', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(true);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.reject(new NotFoundError('TEST ERROR')));
+
+    const result = common.validateIdAndGetGame(validTestId);
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    return expect(result).to.eventually.be.rejected.and.deep.equal({
+      statusCode: 404
+    });
+  });
+
+  it('validateIdAndGetGame returns 502 if an error occurs', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(true);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.reject(new Error('TEST ERROR')));
+
+    const result = common.validateIdAndGetGame(validTestId);
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    return expect(result).to.eventually.be.rejected.and.deep.equal({
+      statusCode: 502,
+      body: '{\"reason\":\"TEST ERROR\"}'
+    });
+  });
+
+  it('validateIdAndGetGameField successfully validates ID and gets a game from the database', () => {
+    const testFieldValue = {"TEST": "VALUE"};
+    const testGameJson = {"testFieldName": testFieldValue};
+
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(true);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve(testGameJson));
+
+    const result = common.validateIdAndGetGameField(validTestId, 'testFieldName');
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 200,
+      body: JSON.stringify(testFieldValue)
+    });
+  });
+
+  it('validateIdAndGetGameField returns 400 if validation fails', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(false);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve());
+
+    const result = common.validateIdAndGetGameField('INVALID ID', 'testFieldName');
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    expect(result).to.become({
+      statusCode: 400,
+      body: '{\"reason\":\"Game ID is invalid\"}'
+    });
+  });
+
+  it('validateIdAndGetGameField returns 404 when no game is found', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(true);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.reject(new NotFoundError('TEST ERROR')));
+
+    const result = common.validateIdAndGetGameField(validTestId);
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 404
+    });
+  });
+
+  it('validateIdAndGetGameField returns 502 if an error occurs', () => {
+    const idUtilityStub = sandbox.stub(idUtility, 'validateId')
+      .returns(true);
+
+    const gamesDatabaseDaoStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.reject(new Error('TEST ERROR')));
+
+    const result = common.validateIdAndGetGameField(validTestId);
+
+    expect(idUtilityStub.calledOnce);
+    expect(gamesDatabaseDaoStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 502,
+      body: '{\"reason\":\"TEST ERROR\"}'
+    });
+  });
+
 });

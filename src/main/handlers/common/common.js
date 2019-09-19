@@ -24,6 +24,19 @@ module.exports.getGameFromDatabase = (id) => {
     });
 };
 
+module.exports.validateIdAndGetGameField = (gameId, fieldName) => {
+  return module.exports.validateIdAndGetGame(gameId)
+    .then((game) => game[fieldName])
+    .then(responseGenerator.generateSuccessResponse)
+    .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
+};
+
+module.exports.validateIdAndGetGame = (gameId) => {
+  return Promise.resolve(gameId)
+    .then(module.exports.validateGameId)
+    .then(module.exports.getGameFromDatabase);
+};
+
 const validateId = (id, errorMessage) => {
   const valid = idUtility.validateId(id);
   if (!valid) {
