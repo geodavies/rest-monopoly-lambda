@@ -1,11 +1,16 @@
-module.exports = {
+{
   "required": [
+    "id",
+    "accepted",
     "from",
     "reciprocalItems",
     "requestedItems",
     "to"
   ],
   "properties": {
+    "id": {
+      "type": "string",
+    },
     "from": {
       "type": "integer",
       "format": "int32",
@@ -17,6 +22,10 @@ module.exports = {
       "format": "int32",
       "minimum": -2147483648,
       "maximum": 2147483647
+    },
+    "accepted": {
+      "type": "boolean",
+      "default": false
     },
     "requestedItems": {
       "properties": {
@@ -58,4 +67,4 @@ module.exports = {
     }
   },
   "$schema": "http://json-schema.org/draft-04/schema#"
-};
+}

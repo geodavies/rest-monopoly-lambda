@@ -13,6 +13,10 @@ module.exports.validatePlayerId = (id) => {
   return validateId(id, 'Player ID is invalid');
 };
 
+module.exports.validateTradeId = (id) => {
+  return validateId(id, 'Trade ID is invalid');
+};
+
 module.exports.getGameFromDatabase = (id) => {
   return gamesDatabaseDao.getById(id)
     .catch((e) => {
