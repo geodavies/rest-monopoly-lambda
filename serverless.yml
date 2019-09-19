@@ -45,6 +45,26 @@ functions:
               paths:
                 gameId: true
                 playerId: true
+  getLogs:
+    handler: src/main/handlers/logs/get.logs
+    events:
+      - http:
+          path: /games/{gameId}/logs
+          method: get
+          request:
+            parameters:
+              paths:
+                gameId: true
+  getTrades:
+    handler: src/main/handlers/trades/get.trades
+    events:
+      - http:
+          path: /games/{gameId}/trades
+          method: get
+          request:
+            parameters:
+              paths:
+                gameId: true
 
 resources:
   Resources:

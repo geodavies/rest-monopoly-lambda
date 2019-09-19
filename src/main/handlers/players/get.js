@@ -3,19 +3,13 @@ const responseGenerator = require('../../components/generator/responseGenerator'
 const common = require('../common/common');
 
 module.exports.players = (event) => {
-  return Promise.resolve(event.pathParameters.gameId)
-    .then(common.validateGameId)
-    .then(common.getGameFromDatabase)
-    .then((game) => game.players)
-    .then(responseGenerator.generateSuccessResponse)
-    .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
+  return common.validateIdAndGetGameField(event.pathParameters.gameId, 'players');
 };
 
 module.exports.player = (event) => {
   return Promise.resolve()
-    .then(() => common.validateGameId(event.pathParameters.gameId))
     .then(() => common.validatePlayerId(event.pathParameters.playerId))
-    .then(common.getGameFromDatabase)
+    .then(() => common.validateIdAndGetGame(event.pathParameters.gameId))
     .then((game) => getPlayerFromGame(game, event.pathParameters.playerId))
     .then(responseGenerator.generateSuccessResponse)
     .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
