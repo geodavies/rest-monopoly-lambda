@@ -2,11 +2,11 @@
 const responseGenerator = require('../../components/generator/responseGenerator');
 const common = require('../common/common');
 
-module.exports.trades = (event) => {
+const trades = (event) => {
   return common.validateIdAndGetGameField(event.pathParameters.gameId, 'trades');
 };
 
-module.exports.trade = (event) => {
+const trade = (event) => {
   return Promise.resolve()
     .then(() => common.validateTradeId(event.pathParameters.tradeId))
     .then(() => common.validateIdAndGetGame(event.pathParameters.gameId))
@@ -22,4 +22,9 @@ const getTradeFromGame = (game, tradeId) => {
   } else {
     throw responseGenerator.generateFailureResponse(404, 'Trade not found');
   }
+};
+
+module.exports = {
+  trades,
+  trade
 };

@@ -2,11 +2,11 @@
 const responseGenerator = require('../../components/generator/responseGenerator');
 const common = require('../common/common');
 
-module.exports.players = (event) => {
+const players = (event) => {
   return common.validateIdAndGetGameField(event.pathParameters.gameId, 'players');
 };
 
-module.exports.player = (event) => {
+const player = (event) => {
   return Promise.resolve()
     .then(() => common.validatePlayerId(event.pathParameters.playerId))
     .then(() => common.validateIdAndGetGame(event.pathParameters.gameId))
@@ -22,4 +22,9 @@ const getPlayerFromGame = (game, playerId) => {
   } else {
     throw responseGenerator.generateFailureResponse(404, 'Player not found');
   }
+};
+
+module.exports = {
+  players,
+  player
 };

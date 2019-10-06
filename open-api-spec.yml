@@ -1,0 +1,763 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'REST Monopoly'
+  description: 'A RESTful implementation of the Monopoly board game'
+paths:
+  /games:
+    post:
+      summary: Create a new game
+      operationId: createGame
+      tags:
+        - games
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGameRequest'
+      responses:
+        '200':
+          description: Game created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '401':
+          description: Unauthorized
+        '502':
+          description: Bad Gateway
+  /games/{gameId}:
+    get:
+      summary: Get a game
+      operationId: getGame
+      tags:
+        - games
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Game retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+  /games/{gameId}/players:
+    get:
+      summary: Get all players
+      operationId: getPlayers
+      tags:
+        - players
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Players retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+    post:
+      summary: Add a new player
+      operationId: addPlayer
+      tags:
+        - players
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlayerRequest'
+      responses:
+        '200':
+          description: Player added
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+  /games/{gameId}/players/{playerId}:
+    get:
+      summary: Get a player
+      operationId: getPlayer
+      tags:
+        - players
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: playerId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Player retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+    patch:
+      summary: Update a player
+      operationId: updatePlayer
+      tags:
+        - players
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: playerId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PatchRequest'
+      responses:
+        '200':
+          description: Title updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Title'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+  /games/{gameId}/titles/{titleId}:
+    get:
+      summary: Get a title
+      operationId: getTitle
+      tags:
+        - titles
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: titleId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Title retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Title'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+    patch:
+      summary: Update a title
+      operationId: updateTitle
+      tags:
+        - titles
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: titleId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PatchRequest'
+      responses:
+        '200':
+          description: Title updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Title'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+  /games/{gameId}/trades:
+    get:
+      summary: Get all trades
+      operationId: getTrades
+      tags:
+        - trades
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Trades retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trade'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+    post:
+      summary: Create a new trade
+      operationId: createTrade
+      tags:
+        - trades
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTradeRequest'
+      responses:
+        '200':
+          description: Trade created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trade'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+  /games/{gameId}/trades/{tradeId}:
+    get:
+      summary: Get a trade
+      operationId: getTrade
+      tags:
+        - trades
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: tradeId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Trade retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trade'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+    patch:
+      summary: Update a trade
+      operationId: updateTrade
+      tags:
+        - trades
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: tradeId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PatchRequest'
+      responses:
+        '200':
+          description: Trade updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trade'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+  /games/{gameId}/logs:
+    get:
+      summary: Get all logs
+      operationId: getLogs
+      tags:
+        - logs
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: limitResults
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Logs retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+  /games/{gameId}/logs/{logId}:
+    get:
+      summary: Get a log
+      operationId: getLog
+      tags:
+        - logs
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: logId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Log retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '502':
+          description: Bad Gateway
+components:
+  schemas:
+    CreateGameRequest:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+      additionalProperties: false
+    Game:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+        titles:
+          properties:
+            properties:
+              type: array
+              items:
+                $ref: '#/components/schemas/Property'
+            utilities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Utility'
+            stations:
+              type: array
+              items:
+                $ref: '#/components/schemas/Station'
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Log'
+    CreatePlayerRequest:
+      properties:
+        name:
+          type: string
+    Player:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        money:
+          type: integer
+        position:
+          type: integer
+          minimum: 1
+          maximum: 40
+        rolled:
+          type: boolean
+          default: false
+        turn:
+          type: boolean
+          default: false
+        jail:
+          properties:
+            inJail:
+              type: boolean
+              default: false
+            turns:
+              type: integer
+              default: 0
+              minimum: 0
+              maximum: 3
+            getOutOfJailFreeCards:
+              type: integer
+              default: 0
+              minimum: 0
+              maximum: 2
+    Title:
+      oneOf:
+        - $ref: '#/components/schemas/Property'
+        - $ref: '#/components/schemas/Utility'
+        - $ref: '#/components/schemas/Station'
+    Property:
+      properties:
+        name:
+          type: string
+        owner:
+          type: integer
+          default: null
+        mortgaged:
+          type: boolean
+          default: false
+        houses:
+          type: integer
+          minimum: 0
+          maximum: 4
+          default: 0
+        hotels:
+          type: integer
+          minimum: 0
+          maximum: 1
+          default: 0
+        rent:
+          type: array
+          items:
+            type: integer
+          minItems: 5
+          maxItems: 5
+        price:
+          properties:
+            purchase:
+              type: integer
+              minimum: 0
+            house:
+              type: integer
+              minimum: 0
+            hotel:
+              type: integer
+              minimum: 0
+            mortgage:
+              type: integer
+              minimum: 0
+    Utility:
+      properties:
+        name:
+          type: string
+        owner:
+          type: integer
+          default: null
+        mortgaged:
+          type: boolean
+          default: false
+        price:
+          properties:
+            purchase:
+              type: integer
+              default: 0
+            mortgage:
+              type: integer
+              minimum: 0
+    Station:
+      properties:
+        name:
+          type: string
+        owner:
+          type: integer
+          default: null
+        mortgaged:
+          type: boolean
+          default: false
+        rent:
+          type: array
+          items:
+            type: integer
+            minItems: 4
+            maxItems: 4
+        price:
+          properties:
+            purchase:
+              type: integer
+              minimum: 0
+            mortgage:
+              type: integer
+              minimum: 0
+    PatchRequest:
+      required:
+        - 'op'
+        - 'path'
+        - 'value'
+      properties:
+        op:
+          type: string
+          enum:
+            - 'replace'
+        path:
+          type: string
+        value:
+          type: object
+    CreateTradeRequest:
+      required:
+        - 'from'
+        - 'to'
+        - 'requestedItems'
+        - 'reciprocalItems'
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
+        requestedItems:
+          properties:
+            money:
+              type: integer
+            titles:
+              properties:
+                properties:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 21
+                stations:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 3
+                utilities:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 1
+        reciprocalItems:
+          properties:
+            money:
+              type: integer
+            titles:
+              properties:
+                properties:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 21
+                stations:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 3
+                utilities:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 1
+    Trade:
+      required:
+        - 'id'
+        - 'from'
+        - 'to'
+        - 'open'
+        - 'accepted'
+        - 'requestedItems'
+        - 'reciprocalItems'
+      properties:
+        id:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        open:
+          type: boolean
+          default: true
+        accepted:
+          type: boolean
+          default: false
+        requestedItems:
+          properties:
+            money:
+              type: integer
+            titles:
+              properties:
+                properties:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 21
+                stations:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 3
+                utilities:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 1
+        reciprocalItems:
+          properties:
+            money:
+              type: integer
+            titles:
+              properties:
+                properties:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 21
+                stations:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 3
+                utilities:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 0
+                    maximum: 1
+    Log:
+      required:
+        - 'player'
+        - 'action'
+        - 'message'
+      properties:
+        player:
+          type: integer
+        action:
+          type: string
+          enum:
+            - 'chance'
+            - 'communityChest'
+            - 'roll'
+            - 'trade'
+            - 'buyTitle'
+            - 'buyHouse'
+            - 'sellHouse'
+            - 'buyHotel'
+            - 'sellHotel'
+            - 'mortgageTitle'
+            - 'unmortgageTitle'
+            - 'jail'
+            - 'go'
+        message:
+          type: string

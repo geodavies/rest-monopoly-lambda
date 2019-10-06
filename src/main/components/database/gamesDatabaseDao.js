@@ -3,7 +3,7 @@ const documentClient = require('serverless-dynamodb-client').doc;
 
 const NotFoundError = require('../error/NotFoundError');
 
-module.exports.insert = (game) => {
+const insert = (game) => {
   const params = {
     TableName: process.env.DYNAMODB_GAME_TABLE,
     Item: game
@@ -16,7 +16,7 @@ module.exports.insert = (game) => {
     });
 };
 
-module.exports.getById = (id) => {
+const getById = (id) => {
   const params = {
     TableName: process.env.DYNAMODB_GAME_TABLE,
     Key: {
@@ -39,4 +39,9 @@ module.exports.getById = (id) => {
         throw new Error('Failed to retrieve game from database');
       }
     });
+};
+
+module.exports = {
+  insert,
+  getById
 };
