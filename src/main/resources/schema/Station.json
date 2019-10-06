@@ -1,4 +1,4 @@
-module.exports = {
+{
   "properties": {
     "name": {
       "type": "string"
@@ -13,25 +13,11 @@ module.exports = {
       "type": "boolean",
       "default": false
     },
-    "houses": {
-      "maximum": 2147483647,
-      "minimum": -2147483648,
-      "type": "integer",
-      "format": "int32",
-      "default": 0
-    },
-    "hotels": {
-      "maximum": 2147483647,
-      "minimum": -2147483648,
-      "type": "integer",
-      "format": "int32",
-      "default": 0
-    },
     "rent": {
-      "maxItems": 5,
-      "minItems": 5,
       "type": "array",
       "items": {
+        "maxItems": 4,
+        "minItems": 4,
         "type": "integer",
         "format": "int32",
         "minimum": -2147483648,
@@ -41,18 +27,6 @@ module.exports = {
     "price": {
       "properties": {
         "purchase": {
-          "minimum": -2147483648,
-          "type": "integer",
-          "format": "int32",
-          "maximum": 2147483647
-        },
-        "house": {
-          "minimum": -2147483648,
-          "type": "integer",
-          "format": "int32",
-          "maximum": 2147483647
-        },
-        "hotel": {
           "minimum": -2147483648,
           "type": "integer",
           "format": "int32",
@@ -68,4 +42,4 @@ module.exports = {
     }
   },
   "$schema": "http://json-schema.org/draft-04/schema#"
-};
+}
