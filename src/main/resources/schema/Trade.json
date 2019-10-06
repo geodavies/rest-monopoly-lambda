@@ -1,27 +1,26 @@
 {
   "required": [
     "id",
-    "accepted",
     "from",
-    "reciprocalItems",
+    "to",
+    "open",
+    "accepted",
     "requestedItems",
-    "to"
+    "reciprocalItems"
   ],
   "properties": {
     "id": {
-      "type": "string",
+      "type": "string"
     },
     "from": {
-      "type": "integer",
-      "format": "int32",
-      "minimum": -2147483648,
-      "maximum": 2147483647
+      "type": "string"
     },
     "to": {
-      "type": "integer",
-      "format": "int32",
-      "minimum": -2147483648,
-      "maximum": 2147483647
+      "type": "string"
+    },
+    "open": {
+      "type": "boolean",
+      "default": true
     },
     "accepted": {
       "type": "boolean",
@@ -30,18 +29,34 @@
     "requestedItems": {
       "properties": {
         "money": {
-          "type": "integer",
-          "format": "int32",
-          "minimum": -2147483648,
-          "maximum": 2147483647
+          "type": "integer"
         },
         "titles": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32",
-            "minimum": -2147483648,
-            "maximum": 2147483647
+          "properties": {
+            "properties": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 21
+              }
+            },
+            "stations": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              }
+            },
+            "utilities": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
           }
         }
       }
@@ -49,18 +64,34 @@
     "reciprocalItems": {
       "properties": {
         "money": {
-          "type": "integer",
-          "format": "int32",
-          "minimum": -2147483648,
-          "maximum": 2147483647
+          "type": "integer"
         },
         "titles": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32",
-            "minimum": -2147483648,
-            "maximum": 2147483647
+          "properties": {
+            "properties": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 21
+              }
+            },
+            "stations": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              }
+            },
+            "utilities": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
           }
         }
       }

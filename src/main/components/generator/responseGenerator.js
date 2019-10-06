@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports.generateSuccessResponse = (body) => {
+const generateSuccessResponse = (body) => {
   return {
     statusCode: 200,
     body: JSON.stringify(body)
   }
 };
 
-module.exports.generateFailureResponse = (statusCode, reason) => {
+const generateFailureResponse = (statusCode, reason) => {
   let response;
   if (typeof reason === "undefined") {
     response = {
@@ -22,4 +22,9 @@ module.exports.generateFailureResponse = (statusCode, reason) => {
     }
   }
   return response;
+};
+
+module.exports = {
+  generateSuccessResponse,
+  generateFailureResponse
 };

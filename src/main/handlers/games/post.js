@@ -6,7 +6,7 @@ const idUtility = require('../../components/utility/idUtility');
 
 const newGameTemplate = require('../../resources/template/newGame.json');
 
-module.exports.game = (event) => {
+const game = (event) => {
   return validateRequest(event.body)
     .then(createNewGameModel)
     .then(insertGameIntoDatabase)
@@ -35,3 +35,7 @@ function insertGameIntoDatabase(game) {
       throw responseGenerator.generateFailureResponse(502, e.message);
     });
 }
+
+module.exports = {
+  game
+};

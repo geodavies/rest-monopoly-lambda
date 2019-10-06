@@ -5,19 +5,19 @@ const idUtility = require('../../components/utility/idUtility');
 
 const NotFoundError = require('../../components/error/NotFoundError');
 
-module.exports.validateGameId = (id) => {
+const validateGameId = (id) => {
   return validateId(id, 'Game ID is invalid');
 };
 
-module.exports.validatePlayerId = (id) => {
+const validatePlayerId = (id) => {
   return validateId(id, 'Player ID is invalid');
 };
 
-module.exports.validateTradeId = (id) => {
+const validateTradeId = (id) => {
   return validateId(id, 'Trade ID is invalid');
 };
 
-module.exports.getGameFromDatabase = (id) => {
+const getGameFromDatabase = (id) => {
   return gamesDatabaseDao.getById(id)
     .catch((e) => {
       if (e instanceof NotFoundError) {
@@ -28,17 +28,17 @@ module.exports.getGameFromDatabase = (id) => {
     });
 };
 
-module.exports.validateIdAndGetGameField = (gameId, fieldName) => {
-  return module.exports.validateIdAndGetGame(gameId)
+const validateIdAndGetGameField = (gameId, fieldName) => {
+  return validateIdAndGetGame(gameId)
     .then((game) => game[fieldName])
     .then(responseGenerator.generateSuccessResponse)
     .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
 };
 
-module.exports.validateIdAndGetGame = (gameId) => {
+const validateIdAndGetGame = (gameId) => {
   return Promise.resolve(gameId)
-    .then(module.exports.validateGameId)
-    .then(module.exports.getGameFromDatabase);
+    .then(validateGameId)
+    .then(getGameFromDatabase);
 };
 
 const validateId = (id, errorMessage) => {
@@ -47,4 +47,13 @@ const validateId = (id, errorMessage) => {
     throw responseGenerator.generateFailureResponse(400, errorMessage);
   }
   return id;
+};
+
+module.exports = {
+  validateGameId,
+  validatePlayerId,
+  validateTradeId,
+  getGameFromDatabase,
+  validateIdAndGetGameField,
+  validateIdAndGetGame
 };
