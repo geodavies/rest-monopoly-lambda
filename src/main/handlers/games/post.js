@@ -15,7 +15,7 @@ const game = (event) => {
 };
 
 function validateRequest(body) {
-  return requestValidator.validate(body, 'CreateGameRequest')
+  return requestValidator.validate(body, 'GameRequest')
     .catch((e) => {
       throw responseGenerator.generateFailureResponse(400, e.message);
     });
