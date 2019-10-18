@@ -268,7 +268,7 @@ describe('Common Handler Functions', () => {
     expect(() => common.validateIndex('-1')).to.throw().that.deep.equals({
       statusCode: 400,
       body: JSON.stringify({
-        reason: 'The propertyIndex is not a valid positive integer'
+        reason: 'The index is not a valid positive integer'
       })
     });
   });
@@ -277,7 +277,7 @@ describe('Common Handler Functions', () => {
     expect(() => common.validateIndex('INVALID')).to.throw().that.deep.equals({
       statusCode: 400,
       body: JSON.stringify({
-        reason: 'The propertyIndex is not a valid positive integer'
+        reason: 'The index is not a valid positive integer'
       })
     });
   });

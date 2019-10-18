@@ -76,6 +76,28 @@ functions:
               paths:
                 gameId: true
                 tradeId: true
+  getProperty:
+    handler: src/main/handlers/titles/get.property
+    events:
+      - http:
+          path: /games/{gameId}/titles/properties/{propertyIndex}
+          method: get
+          request:
+            parameters:
+              paths:
+                gameId: true
+                propertyIndex: true
+  getStation:
+    handler: src/main/handlers/titles/get.station
+    events:
+      - http:
+          path: /games/{gameId}/titles/stations/{stationIndex}
+          method: get
+          request:
+            parameters:
+              paths:
+                gameId: true
+                stationIndex: true
 
 resources:
   Resources:

@@ -21,7 +21,7 @@ const validateIndex = (index) => {
   const pattern = new RegExp(/^[0-9]+$/i);
   const valid = pattern.test(index);
   if (!valid) {
-    throw responseGenerator.generateFailureResponse(400, 'The propertyIndex is not a valid positive integer');
+    throw responseGenerator.generateFailureResponse(400, 'The index is not a valid positive integer');
   }
   return index;
 };
