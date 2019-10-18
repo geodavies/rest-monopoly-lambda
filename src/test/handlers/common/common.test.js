@@ -252,4 +252,34 @@ describe('Common Handler Functions', () => {
     });
   });
 
+  it('validateIndex successfully validates index 0', () => {
+    const result = common.validateIndex('0');
+
+    expect(result).to.equal('0');
+  });
+
+  it('validateIndex successfully validates index 100', () => {
+    const result = common.validateIndex('100');
+
+    expect(result).to.equal('100');
+  });
+
+  it('validateIndex returns 400 for negative integers', () => {
+    expect(() => common.validateIndex('-1')).to.throw().that.deep.equals({
+      statusCode: 400,
+      body: JSON.stringify({
+        reason: 'The propertyIndex is not a valid positive integer'
+      })
+    });
+  });
+
+  it('validateIndex returns 400 for strings', () => {
+    expect(() => common.validateIndex('INVALID')).to.throw().that.deep.equals({
+      statusCode: 400,
+      body: JSON.stringify({
+        reason: 'The propertyIndex is not a valid positive integer'
+      })
+    });
+  });
+
 });

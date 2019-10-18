@@ -17,6 +17,15 @@ const validateTradeId = (id) => {
   return validateId(id, 'Trade ID is invalid');
 };
 
+const validateIndex = (index) => {
+  const pattern = new RegExp(/^[0-9]+$/i);
+  const valid = pattern.test(index);
+  if (!valid) {
+    throw responseGenerator.generateFailureResponse(400, 'The propertyIndex is not a valid positive integer');
+  }
+  return index;
+};
+
 const getGameFromDatabase = (id) => {
   return gamesDatabaseDao.getById(id)
     .catch((e) => {
@@ -53,6 +62,7 @@ module.exports = {
   validateGameId,
   validatePlayerId,
   validateTradeId,
+  validateIndex,
   getGameFromDatabase,
   validateIdAndGetGameField,
   validateIdAndGetGame
