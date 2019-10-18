@@ -11,6 +11,7 @@ const game = (event) => {
     .then(createNewGameModel)
     .then(insertGameIntoDatabase)
     .then(responseGenerator.generateSuccessResponse)
+    .then(addLocationHeader)
     .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
 };
 
@@ -34,6 +35,14 @@ function insertGameIntoDatabase(game) {
     .catch((e) => {
       throw responseGenerator.generateFailureResponse(502, e.message);
     });
+}
+
+function addLocationHeader(response) {
+  const gameId = JSON.parse(response.body).id;
+  response.headers = {
+    Location: `/games/${gameId}`
+  };
+  return response;
 }
 
 module.exports = {
