@@ -151,3 +151,74 @@ describe('Get Station Handler', () => {
   });
 
 });
+
+describe('Get Utility Handler', () => {
+
+  const sandbox = sinon.createSandbox();
+
+  const validTestId = 'ABcde12345';
+
+  afterEach(function () {
+    sandbox.restore();
+  });
+
+  it('Successfully gets a utility of a game', () => {
+    const utility = {name: 'My Utility'};
+    const databaseResponse = {titles: {utilities: [utility]}};
+
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve(databaseResponse));
+
+    const result = get.utility({pathParameters: {gameId: validTestId, utilityIndex: '0'}});
+
+    expect(databaseStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 200,
+      body: JSON.stringify(utility)
+    });
+  });
+
+  it('Returns 400 if the utilityIndex is invalid', () => {
+    const result = get.utility({pathParameters: {gameId: validTestId, utilityIndex: '-1'}});
+
+    return expect(result).to.become({
+      statusCode: 400,
+      body: JSON.stringify({
+        reason: 'The index is not a valid positive integer'
+      })
+    });
+  });
+
+  it('Returns 404 if the utilityIndex is out of bounds', () => {
+    const utility = {name: 'My Utility'};
+    const databaseResponse = {titles: {utilities: [utility]}};
+
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve(databaseResponse));
+
+    const result = get.utility({pathParameters: {gameId: validTestId, utilityIndex: '1'}});
+
+    expect(databaseStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 404
+    });
+  });
+
+  it('Returns 502 if database call fails', () => {
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.reject(new Error('TEST ERROR')));
+
+    const result = get.utility({pathParameters: {gameId: validTestId, utilityIndex: '0'}});
+
+    expect(databaseStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 502,
+      body: JSON.stringify({
+        reason: 'TEST ERROR'
+      })
+    });
+  });
+});
