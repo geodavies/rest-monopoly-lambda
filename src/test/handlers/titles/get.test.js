@@ -41,7 +41,7 @@ describe('Get Property Handler', () => {
     return expect(result).to.become({
       statusCode: 400,
       body: JSON.stringify({
-        reason: 'The propertyIndex is not a valid positive integer'
+        reason: 'The index is not a valid positive integer'
       })
     });
   });
@@ -58,10 +58,7 @@ describe('Get Property Handler', () => {
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 404,
-      body: JSON.stringify({
-        reason: 'Property not found'
-      })
+      statusCode: 404
     });
   });
 
@@ -70,6 +67,78 @@ describe('Get Property Handler', () => {
       .returns(Promise.reject(new Error('TEST ERROR')));
 
     const result = get.property({pathParameters: {gameId: validTestId, propertyIndex: '0'}});
+
+    expect(databaseStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 502,
+      body: JSON.stringify({
+        reason: 'TEST ERROR'
+      })
+    });
+  });
+
+});
+
+describe('Get Station Handler', () => {
+
+  const sandbox = sinon.createSandbox();
+
+  const validTestId = 'ABcde12345';
+
+  afterEach(function () {
+    sandbox.restore();
+  });
+
+  it('Successfully gets a station of a game', () => {
+    const station = {name: 'My Station'};
+    const databaseResponse = {titles: {stations: [station]}};
+
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve(databaseResponse));
+
+    const result = get.station({pathParameters: {gameId: validTestId, stationIndex: '0'}});
+
+    expect(databaseStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 200,
+      body: JSON.stringify(station)
+    });
+  });
+
+  it('Returns 400 if the stationIndex is invalid', () => {
+    const result = get.station({pathParameters: {gameId: validTestId, stationIndex: '-1'}});
+
+    return expect(result).to.become({
+      statusCode: 400,
+      body: JSON.stringify({
+        reason: 'The index is not a valid positive integer'
+      })
+    });
+  });
+
+  it('Returns 404 if the stationIndex is out of bounds', () => {
+    const station = {name: 'My Station'};
+    const databaseResponse = {titles: {stations: [station]}};
+
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.resolve(databaseResponse));
+
+    const result = get.station({pathParameters: {gameId: validTestId, stationIndex: '1'}});
+
+    expect(databaseStub.calledOnce);
+
+    return expect(result).to.become({
+      statusCode: 404
+    });
+  });
+
+  it('Returns 502 if database call fails', () => {
+    const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
+      .returns(Promise.reject(new Error('TEST ERROR')));
+
+    const result = get.station({pathParameters: {gameId: validTestId, stationIndex: '0'}});
 
     expect(databaseStub.calledOnce);
 
