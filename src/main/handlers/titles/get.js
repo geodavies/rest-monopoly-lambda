@@ -20,6 +20,15 @@ const station = (event) => {
     .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
 };
 
+const utility = (event) => {
+  return Promise.resolve()
+    .then(() => common.validateIndex(event.pathParameters.utilityIndex))
+    .then(() => common.validateIdAndGetGame(event.pathParameters.gameId))
+    .then((game) => getUtilityForGame(game, event.pathParameters.utilityIndex))
+    .then(responseGenerator.generateSuccessResponse)
+    .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
+};
+
 const getPropertyForGame = (game, propertyIndex) => {
   const properties = game.titles.properties;
   if (propertyIndex > properties.length - 1) {
@@ -38,7 +47,17 @@ const getStationForGame = (game, stationIndex) => {
   }
 };
 
+const getUtilityForGame = (game, utilityIndex) => {
+  const utilities = game.titles.utilities;
+  if (utilityIndex > utilities.length - 1) {
+    throw responseGenerator.generateFailureResponse(404);
+  } else {
+    return utilities[utilityIndex];
+  }
+};
+
 module.exports = {
   property,
-  station
+  station,
+  utility
 };

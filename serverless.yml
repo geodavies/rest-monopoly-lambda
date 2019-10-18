@@ -98,6 +98,17 @@ functions:
               paths:
                 gameId: true
                 stationIndex: true
+  getUtility:
+    handler: src/main/handlers/titles/get.utility
+    events:
+      - http:
+          path: /games/{gameId}/titles/stations/{utilityIndex}
+          method: get
+          request:
+            parameters:
+              paths:
+                gameId: true
+                utilityindex: true
 
 resources:
   Resources:
