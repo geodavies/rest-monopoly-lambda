@@ -102,7 +102,7 @@ functions:
     handler: src/main/handlers/titles/get.utility
     events:
       - http:
-          path: /games/{gameId}/titles/stations/{utilityIndex}
+          path: /games/{gameId}/titles/utilities/{utilityIndex}
           method: get
           request:
             parameters:

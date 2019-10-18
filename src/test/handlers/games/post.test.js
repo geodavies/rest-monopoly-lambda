@@ -44,6 +44,9 @@ describe('Create Game Handler', () => {
 
     return expect(result).to.become({
       statusCode: 200,
+      headers: {
+        Location: '/games/ABcde12345'
+      },
       body: expectedResponseBody
     });
   });
