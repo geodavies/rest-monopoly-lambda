@@ -2,7 +2,7 @@
   "name": "rest-monopoly-lambda",
   "version": "1.0.0",
   "scripts": {
-    "start": "serverless offline start",
+    "start": "serverless offline start --host 0.0.0.0",
     "test": "./node_modules/mocha/bin/mocha",
     "coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text mocha",
     "publish-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

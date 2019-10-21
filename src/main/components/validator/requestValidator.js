@@ -11,7 +11,7 @@ const validate = (body, requestType) => {
 function parseJSON(body) {
   try {
     return JSON.parse(body);
-  } catch {
+  } catch (e) {
     throw Error('Failed to parse request JSON');
   }
 }
