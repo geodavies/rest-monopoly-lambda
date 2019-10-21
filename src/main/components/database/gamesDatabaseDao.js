@@ -11,7 +11,8 @@ const insert = (game) => {
 
   return documentClient.put(params).promise()
     .then(() => game)
-    .catch(() => {
+    .catch((e) => {
+      console.error(e);
       throw Error('Failed to create game');
     });
 };
