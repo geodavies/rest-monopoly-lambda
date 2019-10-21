@@ -27,9 +27,6 @@ describe('Create Game Handler', () => {
     const requestBody = fs.readFileSync('./src/test/resources/requests/games/create/valid.json', 'utf8');
     const expectedResponseBody = fs.readFileSync('./src/test/resources/responses/games/create/success.json', 'utf8');
 
-    const validatorStub = sandbox.stub(requestValidator, 'validate')
-      .returns(Promise.resolve(JSON.parse(requestBody)));
-
     const idUtilityStub = sandbox.stub(idUtility, 'generateId')
       .returns(validTestId);
 
@@ -38,7 +35,6 @@ describe('Create Game Handler', () => {
 
     const result = post.game({body: requestBody});
 
-    expect(validatorStub.calledOnce);
     expect(idUtilityStub.calledOnce);
     expect(databaseStub.calledOnce);
 
@@ -54,17 +50,7 @@ describe('Create Game Handler', () => {
   it('Returns 400 if validation fails', () => {
     const errorReason = 'Body failed schema validation';
 
-    const validatorStub = sandbox.stub(requestValidator, 'validate')
-      .returns(Promise.reject(new Error(errorReason)));
-
-    const uuidSpy = sandbox.spy(idUtility.generateId);
-    const databaseSpy = sandbox.spy(gamesDatabaseDao.insert);
-
     const result = post.game({body: '{\"test\":\"request\"}'});
-
-    expect(validatorStub.calledOnce);
-    expect(uuidSpy.notCalled);
-    expect(databaseSpy.notCalled);
 
     return expect(result).to.become({
       statusCode: 400,
@@ -73,21 +59,13 @@ describe('Create Game Handler', () => {
   });
 
   it('Returns 502 if inserting into database fails', () => {
-    const errorReason = 'Failed to update game state';
-
-    const validatorStub = sandbox.stub(requestValidator, 'validate')
-      .returns(Promise.resolve({"name": "Test Game"}));
-
-    const uuidStub = sandbox.stub(idUtility, 'generateId')
-      .returns(validTestId);
+    const errorReason = 'Failed to create game';
 
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'insert')
-      .returns(Promise.reject(new Error('Failed to update game state')));
+      .returns(Promise.reject(new Error(errorReason)));
 
-    const result = post.game({body: '{\"test\":\"request\"}'});
+    const result = post.game({body: '{\"name\":\"test\"}'});
 
-    expect(validatorStub.calledOnce);
-    expect(uuidStub.calledOnce);
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({

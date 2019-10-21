@@ -30,7 +30,7 @@ const getGameFromDatabase = (id) => {
   return gamesDatabaseDao.getById(id)
     .catch((e) => {
       if (e instanceof NotFoundError) {
-        throw responseGenerator.generateFailureResponse(404);
+        throw responseGenerator.generateFailureResponse(404, 'Game not found');
       } else {
         throw responseGenerator.generateFailureResponse(502, e.message);
       }

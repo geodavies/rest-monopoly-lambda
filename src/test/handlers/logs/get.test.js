@@ -19,7 +19,7 @@ describe('Get Logs Handler', () => {
   });
 
   it('Successfully gets logs of a game', () => {
-    const expectedResponseBody = [{player: 'playerId', action: 'buyHouse', message: 'Test player bought 1 house for title x'}];
+    const expectedResponseBody = ['Test player bought a house for Pall Mall'];
     const game = {logs: expectedResponseBody};
 
     commonTests.success200(get.logs, sandbox, gamesDatabaseDao, game, expectedResponseBody);

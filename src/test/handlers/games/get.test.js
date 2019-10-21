@@ -21,19 +21,19 @@ describe('Get Game Handler', () => {
   it('Successfully gets a game', () => {
     const expectedResponseBody = {"Test": "Game"};
 
-    commonTests.success200(get.game, sandbox, gamesDatabaseDao, expectedResponseBody, expectedResponseBody);
+    return commonTests.success200(get.game, sandbox, gamesDatabaseDao, expectedResponseBody, expectedResponseBody);
   });
 
   it('Returns 400 if game ID is invalid', () => {
-    commonTests.invalidId400(get.game, sandbox, gamesDatabaseDao);
+    return commonTests.invalidId400(get.game, sandbox, gamesDatabaseDao);
   });
 
   it('Returns 404 if no game found in database', () => {
-    commonTests.noGame404(get.game, sandbox, gamesDatabaseDao);
+    return commonTests.noGame404(get.game, sandbox, gamesDatabaseDao);
   });
 
   it('Returns 502 if database call fails', () => {
-    commonTests.databaseError502(get.game, sandbox, gamesDatabaseDao);
+    return commonTests.databaseError502(get.game, sandbox, gamesDatabaseDao);
   });
 
 });

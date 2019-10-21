@@ -69,13 +69,13 @@ functions:
     handler: src/main/handlers/trades/get.trade
     events:
       - http:
-          path: /games/{gameId}/trades/{tradeId}
+          path: /games/{gameId}/trades/{tradeIndex}
           method: get
           request:
             parameters:
               paths:
                 gameId: true
-                tradeId: true
+                tradeIndex: true
   getProperty:
     handler: src/main/handlers/titles/get.property
     events:

@@ -12,7 +12,7 @@ const insert = (game) => {
   return documentClient.put(params).promise()
     .then(() => game)
     .catch(() => {
-      throw Error('Failed to update game state');
+      throw Error('Failed to create game');
     });
 };
 
@@ -36,7 +36,7 @@ const getById = (id) => {
       if (e instanceof NotFoundError) {
         throw e;
       } else {
-        throw new Error('Failed to retrieve game from database');
+        throw new Error('Failed to retrieve game');
       }
     });
 };

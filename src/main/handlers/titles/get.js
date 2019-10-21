@@ -32,7 +32,7 @@ const utility = (event) => {
 const getPropertyForGame = (game, propertyIndex) => {
   const properties = game.titles.properties;
   if (propertyIndex > properties.length - 1) {
-    throw responseGenerator.generateFailureResponse(404);
+    throw responseGenerator.generateFailureResponse(404, 'Property not found');
   } else {
     return properties[propertyIndex];
   }
@@ -41,7 +41,7 @@ const getPropertyForGame = (game, propertyIndex) => {
 const getStationForGame = (game, stationIndex) => {
   const stations = game.titles.stations;
   if (stationIndex > stations.length - 1) {
-    throw responseGenerator.generateFailureResponse(404);
+    throw responseGenerator.generateFailureResponse(404, 'Station not found');
   } else {
     return stations[stationIndex];
   }
@@ -50,7 +50,7 @@ const getStationForGame = (game, stationIndex) => {
 const getUtilityForGame = (game, utilityIndex) => {
   const utilities = game.titles.utilities;
   if (utilityIndex > utilities.length - 1) {
-    throw responseGenerator.generateFailureResponse(404);
+    throw responseGenerator.generateFailureResponse(404, 'Utility not found');
   } else {
     return utilities[utilityIndex];
   }

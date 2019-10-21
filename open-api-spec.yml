@@ -31,10 +31,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Game'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BodyFailedSchemaValidation'
         401:
           description: Unauthorized
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToCreateGame'
   /games/{gameId}:
     get:
       summary: Get a game
@@ -54,12 +64,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Game'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameIdInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
   /games/{gameId}/players:
     get:
       summary: Get all players
@@ -81,12 +105,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Player'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameIdInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
   /games/{gameId}/players/{playerId}:
     get:
       summary: Get a player
@@ -111,12 +149,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Player'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/GameIdInvalid'
+                  - $ref: '#/components/schemas/PlayerIdInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/GameNotFound'
+                  - $ref: '#/components/schemas/PlayerNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
   /games/{gameId}/titles/properties/{propertyIndex}:
     get:
       summary: Get a property title
@@ -141,12 +197,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Property'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/GameIdInvalid'
+                  - $ref: '#/components/schemas/IndexInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GameNotFound'
+                  - $ref: '#/components/schemas/PropertyNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
   /games/{gameId}/titles/utilities/{utilityIndex}:
     get:
       summary: Get a utility title
@@ -171,12 +245,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Utility'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/GameIdInvalid'
+                  - $ref: '#/components/schemas/IndexInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GameNotFound'
+                  - $ref: '#/components/schemas/UtilityNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
   /games/{gameId}/titles/stations/{stationIndex}:
     get:
       summary: Get a station title
@@ -201,12 +293,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Station'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/GameIdInvalid'
+                  - $ref: '#/components/schemas/IndexInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GameNotFound'
+                  - $ref: '#/components/schemas/StationNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
   /games/{gameId}/trades:
     get:
       summary: Get all trades
@@ -228,12 +338,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Trade'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameIdInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
     post:
       summary: Create a new trade
       operationId: createTrade
@@ -264,12 +388,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Trade'
-        401:
-          description: Unauthorized
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BodyFailedSchemaValidation'
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameNotFound'
+        401:
+          description: Unauthorized
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToCreateTrade'
   /games/{gameId}/trades/{tradeIndex}:
     get:
       summary: Get a trade
@@ -294,12 +432,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Trade'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/GameIdInvalid'
+                  - $ref: '#/components/schemas/IndexInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GameNotFound'
+                  - $ref: '#/components/schemas/TradeNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
   /games/{gameId}/logs:
     get:
       summary: Get all logs
@@ -319,12 +475,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Logs'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameIdInvalid'
         401:
           description: Unauthorized
         404:
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameNotFound'
         502:
           description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedToRetrieveGame'
 
 components:
   schemas:
@@ -587,11 +757,102 @@ components:
       allOf:
         - $ref: '#/components/schemas/TradeRequest'
       required:
-        - 'open'
-        - 'accepted'
+        - open
+        - accepted
       properties:
         open:
           type: boolean
         accepted:
           type: boolean
       additionalProperties: false
+    GameIdInvalid:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Game ID is invalid']
+    PlayerIdInvalid:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Player ID is invalid']
+    IndexInvalid:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['The index is not a valid positive integer']
+    GameNotFound:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Game not found']
+    PlayerNotFound:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Player not found']
+    PropertyNotFound:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Property not found']
+    UtilityNotFound:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Utility not found']
+    StationNotFound:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Station not found']
+    TradeNotFound:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Trade not found']
+    FailedToRetrieveGame:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Failed to retrieve game']
+    FailedToCreateGame:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Failed to create game']
+    FailedToCreateTrade:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Failed to create trade']
+    BodyFailedSchemaValidation:
+      required:
+        - reason
+      properties:
+        reason:
+          type: enum
+          enum: ['Body failed schema validation']

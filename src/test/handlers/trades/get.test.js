@@ -52,13 +52,13 @@ describe('Get Trade Handler', () => {
   });
 
   it('Successfully gets a trade of a game', () => {
-    const trade = {id: validTestId};
+    const trade = {'my': 'trade'};
     const databaseResponse = {trades: [trade]};
 
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
       .returns(Promise.resolve(databaseResponse));
 
-    const result = get.trade({pathParameters: {gameId: validTestId, tradeId: validTestId}});
+    const result = get.trade({pathParameters: {gameId: validTestId, tradeIndex: '0'}});
 
     expect(databaseStub.calledOnce);
 
@@ -72,7 +72,7 @@ describe('Get Trade Handler', () => {
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
       .returns({});
 
-    const result = get.trade({pathParameters: {gameId: 'INVALID UUID', tradeId: validTestId}});
+    const result = get.trade({pathParameters: {gameId: 'INVALID UUID', tradeIndex: '0'}});
 
     expect(databaseStub.notCalled);
 
@@ -84,18 +84,18 @@ describe('Get Trade Handler', () => {
     });
   });
 
-  it('Returns 400 if player ID is invalid', () => {
+  it('Returns 400 if player index is invalid', () => {
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
       .returns({});
 
-    const result = get.trade({pathParameters: {gameId: validTestId, tradeId: 'INVALID UUID'}});
+    const result = get.trade({pathParameters: {gameId: validTestId, tradeIndex: 'INVALID INDEX'}});
 
     expect(databaseStub.notCalled);
 
     return expect(result).to.become({
       statusCode: 400,
       body: JSON.stringify({
-        reason: 'Trade ID is invalid'
+        reason: 'The index is not a valid positive integer'
       })
     });
   });
@@ -104,12 +104,13 @@ describe('Get Trade Handler', () => {
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
       .returns(Promise.reject(new NotFoundError('TEST ERROR')));
 
-    const result = get.trade({pathParameters: {gameId: validTestId, tradeId: validTestId}});
+    const result = get.trade({pathParameters: {gameId: validTestId, tradeIndex: '0'}});
 
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Game not found'})
     });
   });
 
@@ -119,7 +120,7 @@ describe('Get Trade Handler', () => {
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
       .returns(Promise.resolve(databaseResponse));
 
-    const result = get.trade({pathParameters: {gameId: validTestId, tradeId: validTestId}});
+    const result = get.trade({pathParameters: {gameId: validTestId, tradeIndex: '0'}});
 
     expect(databaseStub.calledOnce);
 
@@ -135,7 +136,7 @@ describe('Get Trade Handler', () => {
     const databaseStub = sandbox.stub(gamesDatabaseDao, 'getById')
       .returns(Promise.reject(new Error('TEST ERROR')));
 
-    const result = get.trade({pathParameters: {gameId: validTestId, tradeId: validTestId}});
+    const result = get.trade({pathParameters: {gameId: validTestId, tradeIndex: '0'}});
 
     expect(databaseStub.calledOnce);
 
