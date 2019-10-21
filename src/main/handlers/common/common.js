@@ -13,10 +13,6 @@ const validatePlayerId = (id) => {
   return validateId(id, 'Player ID is invalid');
 };
 
-const validateTradeId = (id) => {
-  return validateId(id, 'Trade ID is invalid');
-};
-
 const validateIndex = (index) => {
   const pattern = new RegExp(/^[0-9]+$/i);
   const valid = pattern.test(index);
@@ -30,7 +26,7 @@ const getGameFromDatabase = (id) => {
   return gamesDatabaseDao.getById(id)
     .catch((e) => {
       if (e instanceof NotFoundError) {
-        throw responseGenerator.generateFailureResponse(404);
+        throw responseGenerator.generateFailureResponse(404, 'Game not found');
       } else {
         throw responseGenerator.generateFailureResponse(502, e.message);
       }
@@ -61,7 +57,6 @@ const validateId = (id, errorMessage) => {
 module.exports = {
   validateGameId,
   validatePlayerId,
-  validateTradeId,
   validateIndex,
   getGameFromDatabase,
   validateIdAndGetGameField,

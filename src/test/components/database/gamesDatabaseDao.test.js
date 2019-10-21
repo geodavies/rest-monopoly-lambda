@@ -39,7 +39,7 @@ describe('Games Database DAO', function () {
 
     expect(dynamoDbStub.calledOnce);
 
-    return expect(result).to.rejectedWith('Failed to update game state');
+    return expect(result).to.rejectedWith('Failed to create game');
   });
 
   it('Successfully gets a game by id from the database', function () {
@@ -61,7 +61,7 @@ describe('Games Database DAO', function () {
 
     expect(dynamoDbStub.calledOnce);
 
-    return expect(result).to.rejectedWith('Failed to retrieve game from database');
+    return expect(result).to.rejectedWith('Failed to retrieve game');
   });
 
   it('Throws a NotFoundError if get game by id finds no item', function () {

@@ -8,19 +8,19 @@ const trades = (event) => {
 
 const trade = (event) => {
   return Promise.resolve()
-    .then(() => common.validateTradeId(event.pathParameters.tradeId))
+    .then(() => common.validateIndex(event.pathParameters.tradeIndex))
     .then(() => common.validateIdAndGetGame(event.pathParameters.gameId))
-    .then((game) => getTradeFromGame(game, event.pathParameters.tradeId))
+    .then((game) => getTradeForGame(game, event.pathParameters.tradeIndex))
     .then(responseGenerator.generateSuccessResponse)
     .catch(handledErrorResponse => Promise.resolve(handledErrorResponse));
 };
 
-const getTradeFromGame = (game, tradeId) => {
-  const filteredTrades = game.trades.filter((trade) => trade.id === tradeId);
-  if (filteredTrades.length === 1) {
-    return filteredTrades[0];
-  } else {
+const getTradeForGame = (game, tradeId) => {
+  const trades = game.trades;
+  if (tradeId > trades.length - 1) {
     throw responseGenerator.generateFailureResponse(404, 'Trade not found');
+  } else {
+    return trades[tradeId];
   }
 };
 

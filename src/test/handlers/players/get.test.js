@@ -25,19 +25,19 @@ describe('Get Players Handler', () => {
     const expectedResponseBody = ["test", "players"];
     const game = {players: expectedResponseBody};
 
-    commonTests.success200(get.players, sandbox, gamesDatabaseDao, game, expectedResponseBody);
+    return commonTests.success200(get.players, sandbox, gamesDatabaseDao, game, expectedResponseBody);
   });
 
   it('Returns 400 if game ID is invalid', () => {
-    commonTests.invalidId400(get.players, sandbox, gamesDatabaseDao);
+    return commonTests.invalidId400(get.players, sandbox, gamesDatabaseDao);
   });
 
   it('Returns 404 if no game found in database', () => {
-    commonTests.noGame404(get.players, sandbox, gamesDatabaseDao);
+    return commonTests.noGame404(get.players, sandbox, gamesDatabaseDao);
   });
 
   it('Returns 502 if database call fails', () => {
-    commonTests.databaseError502(get.players, sandbox, gamesDatabaseDao);
+    return commonTests.databaseError502(get.players, sandbox, gamesDatabaseDao);
   });
 
 });
@@ -110,7 +110,8 @@ describe('Get Player Handler', () => {
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Game not found'})
     });
   });
 

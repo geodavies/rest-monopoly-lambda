@@ -47,7 +47,8 @@ module.exports.noGame404 = (functionToTest, sandbox, gamesDatabaseDao) => {
   expect(databaseStub.calledOnce);
 
   return expect(result).to.become({
-    statusCode: 404
+    statusCode: 404,
+    body: JSON.stringify({reason: 'Game not found'})
   });
 };
 

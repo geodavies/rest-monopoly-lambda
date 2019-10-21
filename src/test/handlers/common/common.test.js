@@ -90,7 +90,8 @@ describe('Common Handler Functions', () => {
     expect(gamesDatabaseDaoStub.calledOnce);
 
     return expect(result).to.eventually.be.rejected.and.deep.equal({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Game not found'})
     });
   });
 
@@ -156,7 +157,8 @@ describe('Common Handler Functions', () => {
     expect(gamesDatabaseDaoStub.calledOnce);
 
     return expect(result).to.eventually.be.rejected.and.deep.equal({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Game not found'})
     });
   });
 
@@ -230,7 +232,8 @@ describe('Common Handler Functions', () => {
     expect(gamesDatabaseDaoStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Game not found'})
     });
   });
 

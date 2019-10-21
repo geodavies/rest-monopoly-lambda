@@ -58,7 +58,8 @@ describe('Get Property Handler', () => {
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Property not found'})
     });
   });
 
@@ -130,7 +131,8 @@ describe('Get Station Handler', () => {
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Station not found'})
     });
   });
 
@@ -202,7 +204,8 @@ describe('Get Utility Handler', () => {
     expect(databaseStub.calledOnce);
 
     return expect(result).to.become({
-      statusCode: 404
+      statusCode: 404,
+      body: JSON.stringify({reason: 'Utility not found'})
     });
   });
 
