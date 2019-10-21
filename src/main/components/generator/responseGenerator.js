@@ -8,20 +8,12 @@ const generateSuccessResponse = (body) => {
 };
 
 const generateFailureResponse = (statusCode, reason) => {
-  let response;
-  if (typeof reason === "undefined") {
-    response = {
-      statusCode: statusCode
-    }
-  } else {
-    response = {
-      statusCode: statusCode,
-      body: JSON.stringify({
-        reason: reason
-      })
-    }
-  }
-  return response;
+  return {
+    statusCode: statusCode,
+    body: JSON.stringify({
+      reason: reason
+    })
+  };
 };
 
 module.exports = {

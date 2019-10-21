@@ -13,10 +13,6 @@ const validatePlayerId = (id) => {
   return validateId(id, 'Player ID is invalid');
 };
 
-const validateTradeId = (id) => {
-  return validateId(id, 'Trade ID is invalid');
-};
-
 const validateIndex = (index) => {
   const pattern = new RegExp(/^[0-9]+$/i);
   const valid = pattern.test(index);
@@ -61,7 +57,6 @@ const validateId = (id, errorMessage) => {
 module.exports = {
   validateGameId,
   validatePlayerId,
-  validateTradeId,
   validateIndex,
   getGameFromDatabase,
   validateIdAndGetGameField,
