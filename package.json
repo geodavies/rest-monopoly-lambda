@@ -8,7 +8,7 @@
     "publish-coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
-    "aws-sdk": "~2.522.0",
+    "aws-sdk": "~2.814.0",
     "jsonschema": "~1.2.4",
     "serverless-dynamodb-client": "~0.0.2"
   },
